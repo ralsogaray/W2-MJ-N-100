@@ -66,6 +66,25 @@
 		</footer>
 		<script src="https://startbootstrap.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
 		<script src="https://startbootstrap.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script>
+			//window.onload = function(){
+				const producto = {
+					nombre : "Ensalada de carne",
+					precio : 799.99,
+					stock : 1000,
+					imagen : "http://lorempixel.com/480/320/food/"
+				}
+
+				const articulo = document.querySelector('article').cloneNode(true)
+
+				articulo.querySelector("img").src = producto.imagen
+				articulo.querySelector("h4 a").innerText = producto.nombre
+				articulo.querySelector("h4 span").innerText = "$" + producto.precio
+				articulo.querySelector("p").innerText = producto.stock + " unid."
+				
+				document.querySelector("#productos-destacados").appendChild(articulo)
+			//}
+		</script>
 	</body>
 </html>
 
