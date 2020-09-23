@@ -84,6 +84,15 @@
 				
 				document.querySelector("#productos-destacados").appendChild(articulo)
 			//}
+
+			fetch("https://api.npoint.io/15a01232d62ae76273b4").then(function(response){ //<-- callback
+				return response.json() //<< reemplaza JSON.parse()
+			}).then(function(productos){
+				console.log("A ver que hay en el parametro 'productos'...")
+				console.log(productos)
+			}).catch(function(){
+				alert("Uppp... como que no hay datos!")
+			})
 		</script>
 	</body>
 </html>
