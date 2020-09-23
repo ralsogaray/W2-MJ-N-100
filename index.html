@@ -68,28 +68,28 @@
 		<script src="https://startbootstrap.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script>
 			//window.onload = function(){
-				const producto = {
-					nombre : "Ensalada de carne",
-					precio : 799.99,
-					stock : 1000,
-					imagen : "http://lorempixel.com/480/320/food/"
-				}
-
-				const articulo = document.querySelector('article').cloneNode(true)
-
-				articulo.querySelector("img").src = producto.imagen
-				articulo.querySelector("h4 a").innerText = producto.nombre
-				articulo.querySelector("h4 span").innerText = "$" + producto.precio
-				articulo.querySelector("p").innerText = producto.stock + " unid."
 				
-				document.querySelector("#productos-destacados").appendChild(articulo)
 			//}
 
 			fetch("https://api.npoint.io/15a01232d62ae76273b4").then(function(response){ //<-- callback
 				return response.json() //<< reemplaza JSON.parse()
 			}).then(function(productos){
-				console.log("A ver que hay en el parametro 'productos'...")
-				console.log(productos)
+				//console.log("A ver que hay en el parametro 'productos'...")
+				//console.table(productos)
+
+				productos.forEach(function(producto){
+					//////////////////////////////
+					const articulo = document.querySelector('article').cloneNode(true)
+
+					articulo.querySelector("img").src = producto.Imagen
+					articulo.querySelector("h4 a").innerText = producto.Nombre
+					articulo.querySelector("h4 span").innerText = "$" + producto.Precio
+					articulo.querySelector("p").innerText = producto.Stock + " unid."
+				
+					document.querySelector("#productos-destacados").appendChild(articulo)
+					/////////////////////////////
+				})
+
 			}).catch(function(){
 				alert("Uppp... como que no hay datos!")
 			})
