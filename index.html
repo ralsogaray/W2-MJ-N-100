@@ -67,30 +67,36 @@
 		<script src="https://startbootstrap.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
 		<script src="https://startbootstrap.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script>
-			//window.onload = function(){
-				
+			let saludo = "Hola"
+			// - Sugar Syntax | Sintaxis Azucarada -
+			//function cargarScript(){
+			// 	//Aca va un codigo loco
+			// 	alert('Hola soy la funcion "cargarScript()"')
 			//}
+			const cargarScript = function(){
+				alert('Hola soy la constante "cargarScript"')
+			}
+			//window.onload = cargarScript
 
-			fetch("https://api.npoint.io/15a01232d62ae76273b4").then(function(response){ //<-- callback
-				return response.json() //<< reemplaza JSON.parse()
-			}).then(function(productos){
+			fetch("https://api.npoint.io/15a01232d62ae76273b4").then( response => response.json() ).then( productos => {
 				//console.log("A ver que hay en el parametro 'productos'...")
 				//console.table(productos)
 
-				productos.forEach(function(producto){
+				productos.forEach( producto => {
 					//////////////////////////////
 					const articulo = document.querySelector('article').cloneNode(true)
 
 					articulo.querySelector("img").src = producto.Imagen
-					articulo.querySelector("h4 a").innerText = producto.Nombre
-					articulo.querySelector("h4 span").innerText = "$" + producto.Precio
+					articulo.querySelector("h4 a").innerText = `${producto.Marca} - ${producto.Nombre}` //Old School: producto.Marca + " - " + producto.Nombre
+					//articulo.querySelector("h4 span").innerText = "$" + producto.Precio
+					articulo.querySelector("h4 span").innerText = `DAI ${producto.Precio}`
 					articulo.querySelector("p").innerText = producto.Stock + " unid."
 				
 					document.querySelector("#productos-destacados").appendChild(articulo)
 					/////////////////////////////
 				})
 
-			}).catch(function(){
+			}).catch(() => {
 				alert("Uppp... como que no hay datos!")
 			})
 		</script>
