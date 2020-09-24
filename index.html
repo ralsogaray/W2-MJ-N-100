@@ -18,39 +18,14 @@
 			<h2 class="w-100 my-3 p-3 border">&#x2B50; Productos Destacados</h2>
 			<!-- AREA PRODUCTOS DESTACADOS -->
 			<section id="productos-destacados" class="row py-3">
-				<article class="col-4">
+
+				<article class="col-4 d-none">
 					<div class="card h-100">
 						<a href="#">
 							<img class="card-img-top img-fluid" src="http://placeimg.com/480/320/tech" alt="">
 						</a>
 						<div class="card-body">
 							<h4 class="card-title"><a href="#">Producto X</a> <span class="badge badge-pill badge-success float-right">$999.99</span></h4>
-							<p class="card-text">9999 unid.</p>
-							<button class="btn btn-primary float-right">Comprar</button>
-						</div>
-					</div>	
-				</article>
-
-				<article class="col-4">
-					<div class="card h-100">
-						<a href="#">
-							<img class="card-img-top img-fluid" src="http://lorempixel.com/480/320/technics/" alt="">
-						</a>
-						<div class="card-body">
-							<h4 class="card-title"><a href="#">Producto Y</a> <span class="badge badge-pill badge-success float-right">$999.99</span></h4>
-							<p class="card-text">9999 unid.</p>
-							<button class="btn btn-primary float-right">Comprar</button>
-						</div>
-					</div>	
-				</article>
-
-				<article class="col-4">
-					<div class="card h-100">
-						<a href="#">
-							<img class="card-img-top img-fluid" src="https://picsum.photos/480/320/" alt="">
-						</a>
-						<div class="card-body">
-							<h4 class="card-title"><a href="#">Producto Z</a> <span class="badge badge-pill badge-success float-right">$999.99</span></h4>
 							<p class="card-text">9999 unid.</p>
 							<button class="btn btn-primary float-right">Comprar</button>
 						</div>
@@ -74,31 +49,28 @@
 			// 	alert('Hola soy la funcion "cargarScript()"')
 			//}
 			const cargarScript = function(){
-				alert('Hola soy la constante "cargarScript"')
-			}
-			//window.onload = cargarScript
+				fetch("https://api.npoint.io/15a01232d62ae76273b4").then( response => response.json() ).then( productos => {
 
-			fetch("https://api.npoint.io/15a01232d62ae76273b4").then( response => response.json() ).then( productos => {
-				//console.log("A ver que hay en el parametro 'productos'...")
-				//console.table(productos)
+					productos.forEach( producto => {
+						/////////////////	/////////////
+						const articulo = document.querySelector('article').cloneNode(true)
 
-				productos.forEach( producto => {
-					//////////////////////////////
-					const articulo = document.querySelector('article').cloneNode(true)
+						articulo.querySelector("img").src = producto.Imagen
+						articulo.querySelector("h4 a").innerText = `${producto.Marca} - ${producto.Nombre}` //Old School: producto.Marca + " - " + producto.Nombre
+						articulo.querySelector("h4 span").innerText = `DAI ${producto.Precio}`
+						articulo.querySelector("p").innerText = producto.Stock + " unid."
 
-					articulo.querySelector("img").src = producto.Imagen
-					articulo.querySelector("h4 a").innerText = `${producto.Marca} - ${producto.Nombre}` //Old School: producto.Marca + " - " + producto.Nombre
-					//articulo.querySelector("h4 span").innerText = "$" + producto.Precio
-					articulo.querySelector("h4 span").innerText = `DAI ${producto.Precio}`
-					articulo.querySelector("p").innerText = producto.Stock + " unid."
-				
-					document.querySelector("#productos-destacados").appendChild(articulo)
-					/////////////////////////////
+						articulo.classList.remove('d-none')
+
+						document.querySelector("#productos-destacados").appendChild(articulo)
+						/////////////////////////////
+					})
+
+				}).catch(() => {
+					alert("Uppp... como que no hay datos!")
 				})
-
-			}).catch(() => {
-				alert("Uppp... como que no hay datos!")
-			})
+			}
+			window.onload = cargarScript
 		</script>
 	</body>
 </html>
