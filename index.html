@@ -51,20 +51,26 @@
 
 				try {
 					const response = await fetch("https://api.npoint.io/15a01232d62ae76273b4")
-					const productos = await response.json()
+					const datos = await response.json()
 
-					productos.forEach( producto => {
+					const productos = datos.map( item => {
 						const articulo = document.querySelector('article').cloneNode(true)
 
-						articulo.querySelector("img").src = producto.Imagen
-						articulo.querySelector("h4 a").innerText = `${producto.Marca} - ${producto.Nombre}` //Old School: producto.Marca + " - " + producto.Nombre
-						articulo.querySelector("h4 span").innerText = `DAI ${producto.Precio}`
-						articulo.querySelector("p").innerText = producto.Stock + " unid."
+						articulo.querySelector("img").src = item.Imagen
+						articulo.querySelector("h4 a").innerText = `${item.Marca} - ${item.Nombre}` //Old School: producto.Marca + " - " + producto.Nombre
+						articulo.querySelector("h4 span").innerText = `DAI ${item.Precio}`
+						articulo.querySelector("p").innerText = item.Stock + " unid."
 
 						articulo.classList.remove('d-none')
+						articulo.setAttribute('data-price', item.Precio)
 
-						document.querySelector("#productos-destacados").appendChild(articulo)
+						return articulo
 					})
+
+					const filtrados = productos.filter( producto => producto.getAttribute('data-price') > 500 && producto.getAttribute('data-price') < 1000 )
+
+					filtrados.forEach( producto => document.querySelector("#productos-destacados").appendChild(producto) )
+
 				} catch(error){
 					alert("Ahhhhh... no tengo productos!!!!")
 				}
