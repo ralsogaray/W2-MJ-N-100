@@ -42,17 +42,18 @@
 		<script src="https://startbootstrap.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
 		<script src="https://startbootstrap.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script>
-			let saludo = "Hola"
 			// - Sugar Syntax | Sintaxis Azucarada -
-			//function cargarScript(){
+			//function cargarCatalogo(){
 			// 	//Aca va un codigo loco
-			// 	alert('Hola soy la funcion "cargarScript()"')
+			// 	alert('Hola soy la funcion "cargarCatalogo()"')
 			//}
-			const cargarScript = function(){
-				fetch("https://api.npoint.io/15a01232d62ae76273b4").then( response => response.json() ).then( productos => {
+			const cargarCatalogo = async function(){
+
+				try {
+					const response = await fetch("https://api.npoint.io/15a01232d62ae76273b4")
+					const productos = await response.json()
 
 					productos.forEach( producto => {
-						/////////////////	/////////////
 						const articulo = document.querySelector('article').cloneNode(true)
 
 						articulo.querySelector("img").src = producto.Imagen
@@ -63,14 +64,13 @@
 						articulo.classList.remove('d-none')
 
 						document.querySelector("#productos-destacados").appendChild(articulo)
-						/////////////////////////////
 					})
+				} catch(error){
+					alert("Ahhhhh... no tengo productos!!!!")
+				}
 
-				}).catch(() => {
-					alert("Uppp... como que no hay datos!")
-				})
 			}
-			window.onload = cargarScript
+			window.onload = cargarCatalogo
 		</script>
 	</body>
 </html>
