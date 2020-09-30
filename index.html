@@ -12,6 +12,7 @@
 		<header class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
 			<div class="container">
 				<a class="navbar-brand font-weight-bold" href="#">&#x1F5A5; MercadoTECH</a>
+				<button class="btn btn-primary" id="agregar-producto">Agregar Producto</button>
 			</div>
 		</header>
 		<main class="container">
@@ -76,6 +77,36 @@
 				}
 
 			}
+			
+			const crearProducto = async () => {
+				//Aca hay que hacer magia...
+				const nombre = prompt('Ingrese nombre:')
+				const marca = prompt('Ingrese marca:')
+				const stock = prompt('Ingrese stock:')
+				const precio = prompt('Ingrese precio:')
+				const imagen = prompt('Ingrese URL de la imagen:')
+
+				const datos = new FormData()
+				datos.append('nombre', nombre)
+				datos.append('marca', marca)
+				datos.append('stock', stock)
+				datos.append('precio', precio)
+				datos.append('imagen', imagen)
+
+				const configs = {
+					method : "POST",
+					headers : {
+						"Content-Type" : "application/x-www-form-urlencoded"
+					},
+					body : datos
+				}
+
+				await fetch("http://acualquierladolomando.com", configs)
+			}
+			
+			document.querySelector("#agregar-producto").onclick = crearProducto
+			
+			
 			window.onload = cargarCatalogo
 		</script>
 	</body>
