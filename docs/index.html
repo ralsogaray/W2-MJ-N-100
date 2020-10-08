@@ -93,15 +93,17 @@
 				datos.append('precio', precio)
 				datos.append('imagen', imagen)
 
+				const producto = Object.fromEntries( datos ) // <-- { nombre : "...", marca : "..." ... }
+
 				const configs = {
 					method : "POST",
 					headers : {
-						"Content-Type" : "application/x-www-form-urlencoded"
+						"Content-Type" : "application/json"
 					},
-					body : datos
+					body : JSON.stringify(producto)
 				}
 
-				await fetch("https://webhook.site/f08170dd-13b5-4b12-8575-7478623ddb72", configs)
+				await fetch("http://localhost:2000/agregar", configs)
 			}
 			
 			document.querySelector("#agregar-producto").onclick = crearProducto
