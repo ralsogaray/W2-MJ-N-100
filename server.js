@@ -22,7 +22,16 @@ server.post("/agregar", async function(request, response){
     /*
         ACA DEBERIA VALIDAR LOS DATOS CON SUPER MEGA IF Y OTRAS COSAS
     */
-    await baseDeProductos.put('1823y49172t', request.body )
+    const ID = "P" + Math.random().toString(36).slice(2) // <-- Ej: 4x93l81yk47
+
+    await baseDeProductos.put(ID, request.body )
 
     response.end("Mira la consola...")
+})
+
+server.get("/mostrar", async (req, res) => {
+
+    const productos = await baseDeProductos.list()
+
+    res.json(productos)
 })
